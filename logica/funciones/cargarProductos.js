@@ -5,9 +5,9 @@
 // Lista<JSON{ProductID:Natural, ProductName:Texto, CategoryName:Texto, Unit:Texto,Price:Real}>
 // ----------------------------------------------------------------------------
 
-module.exports = async function cargarProductos( datos ) {
+module.exports = async function cargarProductos() {
 
-    var textoSQL = "select * from Products";
+    var textoSQL = `select * from Products`;
 
     return new Promise( (resolver, rechazar) => {
         cargarProductos.conexion.all( textoSQL,
@@ -17,6 +17,8 @@ module.exports = async function cargarProductos( datos ) {
     })
 
 } // ()
+
+
 
 // --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------
