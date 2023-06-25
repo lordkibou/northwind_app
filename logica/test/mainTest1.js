@@ -1,126 +1,103 @@
-
 // --------------------------------------------------------------------------------
 // mainTest1.js
 // --------------------------------------------------------------------------------
+const assert = require ('assert')
+
 const logica = require( "../logica.js" )
-
-var assert = require ('assert')
-
 // --------------------------------------------------------------------------------
 // main ()
 // --------------------------------------------------------------------------------
 const cargarPedidos = require('../funciones/cargarPedidos.js');
-
-describe('Test CargarPedidos.js', function() {
-	it('debería cargar los pedidos correctamente', function () {
-		// Crear datos de prueba
-		const pedidos = [
-			{ id: 1, producto: 'Producto 1', cantidad: 5 },
-			{ id: 2, producto: 'Producto 2', cantidad: 10 },
-			{ id: 3, producto: 'Producto 3', cantidad: 2 }
-		];
-
-		// Llamar a la función CargarPedidos() y verificar el resultado
-		return cargarPedidos.cargarPedidos(pedidos)
-			.then((resultado) => {
-				// Verificar la estructura del resultado
-				assert.isArray(resultado, 'El resultado debería ser un arreglo');
-				resultado.forEach((pedido) => {
-					assert.isNumber(pedido.OrderId, 'OrderId debería ser un número');
-					assert.isDate(pedido.OrderDate, 'OrderDate debería ser una fecha');
-					assert.isArray(pedido.Productos, 'Productos debería ser un arreglo');
-					pedido.Productos.forEach((producto) => {
-						assert.isNumber(producto.ProductID, 'ProductID debería ser un número');
-						assert.isString(producto.ProductName, 'ProductName debería ser una cadena');
-						assert.isString(producto.Unit, 'Unit debería ser una cadena');
-						assert.isNumber(producto.Price, 'Price debería ser un número');
-						assert.isNumber(producto.Quantity, 'Quantity debería ser un número');
-					});
-				});
-				console.log('Prueba exitosa: los pedidos se cargaron correctamente.');
-			})
-			.catch(error => {
-				console.error('Error en la prueba:', error);
-			});
-	});
-});
-
 const cargarProductos = require('../funciones/cargarProductos.js');
-
-describe('cargarProductos', function () {
-	it('debería cargar los productos correctamente', function () {
-		return cargarProductos()
-			.then((resultado) => {
-				// Verificar el resultado
-				assert(Array.isArray(resultado), 'El resultado debería ser un arreglo');
-
-				resultado.forEach((producto) => {
-					assert.strictEqual(typeof producto.ProductID, 'number', 'ProductID debería ser un número');
-					assert.strictEqual(typeof producto.ProductName, 'string', 'ProductName debería ser una cadena');
-					assert.strictEqual(typeof producto.Unit, 'string', 'Unit debería ser una cadena');
-					assert.strictEqual(typeof producto.Price, 'number', 'Price debería ser un número');
-					assert.strictEqual(typeof producto.Quantity, 'number', 'Quantity debería ser un número');
-				});
-
-				console.log('Prueba exitosa: los productos se cargaron correctamente.');
-			})
-			.catch(error => {
-				console.error('Error en la prueba:', error);
-			});
-	});
-});
-
+const cargarProductosCategoria = require('../funciones/cargarProductosCategoria');
 const cargarProductosPedido = require('../funciones/cargarProductosPedido.js');
-
-describe('cargarProductosPedido', function () {
-	it('debería cargar los productos del pedido correctamente', function () {
-		const datos = {
-			OrderID: 1
-		};
-
-		return cargarProductosPedido(datos)
-			.then((resultado) => {
-				// Verificar el resultado
-				assert(Array.isArray(resultado), 'El resultado debería ser un arreglo');
-
-				resultado.forEach((producto) => {
-					assert.strictEqual(typeof producto.ProductID, 'number', 'ProductID debería ser un número');
-					assert.strictEqual(typeof producto.ProductName, 'string', 'ProductName debería ser una cadena');
-					assert.strictEqual(typeof producto.CategoryName, 'string', 'CategoryName debería ser una cadena');
-					assert.strictEqual(typeof producto.Unit, 'string', 'Unit debería ser una cadena');
-					assert.strictEqual(typeof producto.Price, 'number', 'Price debería ser un número');
-					assert.strictEqual(typeof producto.Quantity, 'number', 'Quantity debería ser un número');
-				});
-
-				console.log('Prueba exitosa: los productos del pedido se cargaron correctamente.');
-			})
-			.catch(error => {
-				console.error('Error en la prueba:', error);
-			});
-	});
-});
-
+const crearPedido = require('../funciones/crearPedido.js');
 const guardarProductoEnPedido = require('../funciones/guardarProductoEnPedido.js');
+const pagarPedido = require('../funciones/pagarPedido.js')
+// --------------------------------------------------------------------------------
+// Tests ()
+// --------------------------------------------------------------------------------
 
-describe('guardarProductoEnPedido', function () {
-	it('debería guardar el producto en el pedido correctamente', function () {
-		const datos = {
-			CustomerID: '12345',
-			ProductID: 1,
-			Quantity: 5
-		};
+describe("Test para las funciones de la logica", () => {
+	var laLogica = null
+	it("cargo la lógica abriendo conexión ", async function () {
+		laLogica = await logica("../bd/datos.bd")
+	}) //fin del test concreto
 
-		return guardarProductoEnPedido(datos)
-			.then(() => {
-				console.log('Prueba exitosa: el producto se guardó en el pedido correctamente.');
+	it("prueba para cargarPedidos()", () => {
+		return laLogica.llamar("cargarPedidos.js", {CustomerID: 2})
+			.then((resultado) => {
+				assert.equal(resultado[0].OrderId, 3, "no es el resultado esperado?");
 			})
 			.catch(error => {
-				console.error('Error en la prueba:', error);
+				console.error('Error en cargarPedidos():', error);
 			});
-	});
-});
+	}) //fin del test concreto
 
+	it("prueba para cargarProductos()", () => {
+		return laLogica.llamar("cargarProductos.js")
+			.then((resultado) => {
+				assert.equal(resultado[0].ProductName, "Platanos", "No es platanos?");
+				assert.equal(resultado[0].Price, 2.2, "No es el precio esperado?");
+				assert.equal(resultado[2].Unit, "ml", "No es mililitros?")
+			})
+			.catch(error => {
+				console.error('Error en cargarProductos():', error);
+			})
+	}) //fin del test concreto
 
+	it("prueba para cargarProductosCategoria()", () => {
+		return laLogica.llamar("cargarProductosCategoria.js", {CategoryID: 2})
+			.then((resultado) => {
+				assert.equal(resultado[0].ProductName, "Libreta", "No es libreta?");
+				assert.equal(resultado[0].CategoryName, "Papeleria", "No es categoria papeleria?");
+			})
+			.catch(error => {
+				console.error('Error en cargarProductosCategoria():', error);
+			});
+	}) //fin del test concreto
+
+	it("prueba para cargarProductosPedido()", () => {
+		return laLogica.llamar("cargarProductosPedido.js", {OrderID: 2})
+			.then((resultado) => {
+				assert.equal(resultado[0].ProductName, "Lápiz", "No es lapiz?");
+				assert.equal(resultado[0].Quantity, 2, "No es 2?");
+			})
+			.catch(error => {
+				console.error('Error en cargarProductosPedido():', error);
+			});
+	}) //fin del test concreto
+
+	// it("prueba para crearPedido()", () => {
+	// 	return crearPedido(2)
+	// 		.then((resultado) => {
+	//
+	// 		})
+	// 		.catch(error => {
+	// 			console.error('Error en crearPedido():', error);
+	// 		});
+	// }) //fin del test concreto
+	//
+	it("prueba para guardarProductoEnPedido()", () => {
+		return guardarProductoEnPedido()
+			.then((resultado) => {
+
+			})
+			.catch(error => {
+				console.error('Error en guardarProductoEnPedido():', error);
+			});
+	}) //fin del test concreto
+	//
+	// it("prueba para pagarPedido()", () => {
+	// 	return pagarPedido()
+	// 		.then((resultado) => {
+	// 		})
+	// 		.catch(error => {
+	// 			console.error('Error en pagarPedido():', error);
+	// 		});
+	// }) //fin del test concreto
+
+}) //fin del describe
 // --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------
