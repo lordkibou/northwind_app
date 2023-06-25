@@ -3,7 +3,7 @@
 //                              cargarProductosPedido() <--
 //         <--
 // Lista<JSON{ProductID:Natural, ProductName:Texto, CategoryName:Texto,
-//                       Unit:Texto,Price:Real, Quantity:Natural}>
+//                       Unit:Texto, Price:Real, Quantity:Natural}>
 // ----------------------------------------------------------------------------
 module.exports = async function cargarProductosPedido( datos ) {
 
@@ -14,7 +14,7 @@ module.exports = async function cargarProductosPedido( datos ) {
             Categories.CategoryName,
             Products.Unit,
             Products.Price,
-            Products.Quantity
+            OrderDetails.Quantity
         FROM Products
         INNER JOIN Categories ON Products.CategoryID = Categories.CategoryID
         INNER JOIN OrderDetails ON Products.ProductID = OrderDetails.ProductID

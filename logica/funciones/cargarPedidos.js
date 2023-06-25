@@ -5,7 +5,7 @@
 // Lista<JSON{OrderId:Natural, OrderDate:Timestamp>
 // ----------------------------------------------------------------------------
 
-async function cargarPedidos( datos ) {
+module.exports = async function cargarPedidos( datos ) {
 //El problema puede ser par
 
     var textoSQL = `
@@ -23,11 +23,6 @@ async function cargarPedidos( datos ) {
     })
 
 } // ()
-
-// Exportar la función CargarPedidos
-module.exports = {
-    cargarPedidos: cargarPedidos
-};
 
 // --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------
