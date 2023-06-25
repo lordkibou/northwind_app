@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+<<<<<<< Updated upstream
     <data-source source="LOCAL" name="datos [2]" uuid="6c2c2fd1-c94f-496d-b3b8-56f2828bd6bc">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\manue\OneDrive - UPV\University\1er Curso 2do Cuatrimestre\programing\gitdirectory\northwind_app\bd\datos.bd</jdbc-url>
+=======
+<<<<<<< Updated upstream
+    <data-source source="LOCAL" name="datos" uuid="d0c04266-586d-4d17-82fc-356be5413d8d">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\santi\Desktop\northwind_app\bd\datos.bd</jdbc-url>
+=======
+    <data-source source="LOCAL" name="datos" uuid="9f524c30-046f-4308-8dc3-3961d70d1bd7">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/bd/datos.bd</jdbc-url>
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>
           <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.40.1/org/xerial/sqlite-jdbc/3.40.1.0/sqlite-jdbc-3.40.1.0.jar</url>
         </library>
+<<<<<<< Updated upstream
+=======
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/Xerial SQLiteJDBC/3.34.0/sqlite-jdbc-3.34.0.jar</url>
+        </library>
+>>>>>>> Stashed changes
       </libraries>
     </data-source>
   </component>

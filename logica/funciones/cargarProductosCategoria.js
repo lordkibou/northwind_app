@@ -12,6 +12,7 @@ module.exports = async function cargarProductosCategoria( datos ) {
     JOIN Categories ON Products.CategoryID = Categories.CategoryID
     WHERE Categories.CategoryID = $CategoryID; 
     `;
+
     var valoresParaSQL = { $CategoryID: datos.CategoryID }
     return new Promise( (resolver, rechazar) => {
         cargarProductosCategoria.conexion.all( textoSQL, valoresParaSQL,
