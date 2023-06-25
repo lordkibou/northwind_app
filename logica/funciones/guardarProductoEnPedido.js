@@ -11,12 +11,12 @@ module.exports =  async function guardarProductoEnPedido( datos ) {
     //         this.logica.funciones.loQueSea.f()
 
     var textoSQL =
-        "INSERT INTO OrderDetails (OrderDetailsID, OrderId, ProductId, Quantity)\n" +
-        "SELECT CONCAT(Orders.OrderId, '-', ROW_NUMBER() OVER (ORDER BY Orders.OrderId DESC)), Orders.OrderId, $ProductID, $Quantity\n" +
-        "FROM Orders\n" +
-        "WHERE CustomerID = $CustomerID\n" +
-        "ORDER BY Orders.OrderId DESC\n" +
-        "LIMIT 1;"
+        `INSERT INTO OrderDetails (OrderDetailsID, OrderId, ProductId, Quantity)
+         SELECT CONCAT(Orders.OrderId, '-', ROW_NUMBER() OVER (ORDER BY Orders.OrderId DESC)), Orders.OrderId, $ProductID, $Quantity
+         FROM Orders
+         WHERE CustomerID = $CustomerID
+         ORDER BY Orders.OrderId DESC
+         LIMIT 1;`
     var valoresParaSQL = { $CustomerID: datos.CustomerID, $ProductID: datos.ProductID,
         $Quantity: datos.Quantity }
 
@@ -27,6 +27,7 @@ module.exports =  async function guardarProductoEnPedido( datos ) {
     })
 
 } // ()
+
 
 
 // --------------------------------------------------------------------------------

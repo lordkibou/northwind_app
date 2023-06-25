@@ -6,7 +6,7 @@
 	"version": "0.0.1",
 	"repository": "no hay",
 	"scripts": {
-		"test": "./node_modules/mocha/bin/mocha"
+		"test": "node node_modules/mocha/bin/mocha"
 	},
 	"dependencies": {
 		"sqlite3": "*"
