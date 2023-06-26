@@ -8,11 +8,11 @@ body {
     user-select: none;
 }
 
-h1, h2, h3, p{
+h1, h2, h3, p {
     font-family: Arial, sans-serif;
 }
 
-h1{
+h1 {
     font-size: xx-large;
 }
 
@@ -28,7 +28,7 @@ select {
 /* ---------------- Contenido -------------- */
 /* ----------------------------------------- */
 #contenidoPaginaProductos {
-    margin: 1% 10% 10% 10%;
+    margin: -5% 10% 10% 10%;
     height: auto;
 }
 
@@ -39,10 +39,10 @@ select {
 .listaCategorias {
     width: 100%;
     height: 40px;
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -58,7 +58,6 @@ select {
 }
 
 
-
 /* ----------------------------------------- */
 /* ----------- Tarjeta producto ------------ */
 /* ----------------------------------------- */
@@ -66,10 +65,10 @@ select {
 .producto {
     width: 100%;
     height: 250px;
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 25px;
     display: flex;
     align-items: center;
@@ -84,8 +83,9 @@ select {
     background: #fff;
     border-radius: 15px;
     margin-left: 3%;
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
 }
+
 .contenidoProducto {
     width: 60%;
     height: 80%;
@@ -94,6 +94,7 @@ select {
     flex-direction: column;
     justify-content: space-between;
 }
+
 .informacionProducto {
     display: flex;
     align-items: flex-start;
@@ -105,13 +106,13 @@ select {
     border-radius: 25px;
     border: none;
     background-color: #D1A39B;
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.botonAnyadirAlPedido p{
+.botonAnyadirAlPedido p {
     color: #ffffff;
     font-size: large;
 }
@@ -165,7 +166,7 @@ select {
         font-size: medium;
     }
 
-    .botonAnyadirAlPedido{
+    .botonAnyadirAlPedido {
         width: 90%;
         margin-bottom: 3%;
     }
@@ -188,7 +189,7 @@ select {
     height: 200px;
     background: #fff;
     border-radius: 25px;
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
 }
 
 .contenedorTextoVistaProducto {
@@ -212,10 +213,10 @@ select {
 
 .selectCantidad {
     width: 10%;
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 25px;
     height: 40px;
     padding-left: 15px;
@@ -228,13 +229,13 @@ select {
     border-radius: 25px;
     border: none;
     background-color: #D1A39B;
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.anyadirProducto p{
+.anyadirProducto p {
     color: #ffffff;
     font-size: large;
 }
@@ -243,7 +244,7 @@ select {
 /* --------- Vista Producto - Móvil -------- */
 /* ----------------------------------------- */
 
-@media(max-width: 800px) {
+@media (max-width: 800px) {
     .contenedorInteractuables {
         margin-top: 10%;
     }
@@ -269,10 +270,10 @@ select {
 }
 
 .contenedorPedidoActual {
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 25px;
     display: flex;
     height: auto;
@@ -281,7 +282,7 @@ select {
     flex-direction: column;
 }
 
-.contenedorPedidoActual h2{
+.contenedorPedidoActual h2 {
     margin-left: 3%;
 }
 
@@ -303,7 +304,7 @@ select {
 .btnFinalizarPedido {
     height: 40px;
     background-color: #D1A39B;
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
     color: white;
     text-decoration: none;
     border-radius: 25px;
@@ -326,10 +327,10 @@ select {
     width: 100%;
     height: auto;
     margin-top: 4%;
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 25px;
     display: flex;
     align-items: flex-start;
@@ -353,6 +354,7 @@ select {
 .infoDerecha p {
     margin-top: 5%;
 }
+
 .infoDerecha h2 {
     margin-top: -10px;
 }
@@ -368,10 +370,11 @@ select {
     border-radius: 25px;
     border: none;
     background-color: #D1A39B;
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
     color: white;
     text-decoration: none;
 }
+
 .btnVerPedido p {
     text-align: center;
     font-size: medium;
@@ -415,10 +418,10 @@ select {
 .productoPedido {
     width: 100%;
     height: 200px;
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 25px;
     display: flex;
     align-items: center;
@@ -431,7 +434,8 @@ select {
     align-items: center;
     justify-content: right;
 }
-.precio p{
+
+.precio p {
     margin-right: 15px;
 }
 
@@ -455,6 +459,7 @@ select {
         flex-direction: column;
         margin-top: 6%;
     }
+
     .precio {
         margin-top: -10px;
         width: 90%;
@@ -486,10 +491,10 @@ select {
 #customerName {
     width: 100%;
     height: 40px;
-    background: rgba( 255, 255, 255, 0.45 );
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 25px;
     border: none;
     padding-left: 20px;
@@ -497,7 +502,7 @@ select {
 
 }
 
-#customerName p{
+#customerName p {
     font-weight: bold;
     color: #000000;
 }
@@ -506,7 +511,7 @@ select {
     border-radius: 25px;
     border: none;
     background-color: #D1A39B;
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.07 );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
     color: #fff;
     width: 30%;
     text-decoration: none;
@@ -526,11 +531,12 @@ select {
     margin-top: 6%;
     margin-bottom: 0;
 }
-.btnVolver{
+
+.btnVolver {
     border-radius: 25px;
     border: none;
     background-color: #D1A39B;
-    box-shadow: 0 8px 32px 0 rgba( 0, 0, 0, 0.08 );
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
     color: #fff;
     width: 15%;
     height: 40px;
@@ -550,4 +556,72 @@ select {
     margin-right: 10%;
     margin-top: 6%;
     margin-bottom: 0;
+}
+
+/* ----------------------------------------- */
+/* ----------------- Login ----------------- */
+/* ----------------------------------------- */
+
+#contenidoLogin {
+    margin: 3% 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 70%;
+}
+
+#contenidoLogin form {
+    width: 90%;
+    margin-top: 3%;
+}
+
+#contenidoLogin form input {
+    width: 100%;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 25px;
+    border: none;
+    padding-left: 20px;
+    color: #000000;
+    margin-bottom: 3%;
+}
+
+#btnIniciarSesion {
+    background-color: #D1A39B;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+    color: #fff;
+    width: 15%;
+    height: 50px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 25px;
+    align-self: flex-end;
+    margin-right: 3%;
+    margin-top: 3%;
+}
+
+/* ----------------------------------------- */
+/* ------------- Login Móvil --------------- */
+/* ----------------------------------------- */
+
+@media (max-width: 800px) {
+
+    #btnIniciarSesion {
+        width: 70%;
+        margin-right: unset;
+        align-self: center;
+        margin-top: 10%;
+    }
+
+    #contenidoLogin form input {
+        margin-bottom: 10%;
+    }
+
 }

@@ -1,110 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Productos </title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Productos</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+
+  <script src="logicaFake/llamarGET.js"></script>
 </head>
 <body>
-
 <section id="headerProductos">
-    <h2> Cliente: </h2>
-    <input type="text" id="customerName" placeholder="Introduce tu nombre">
-    <a class="btnVerPedidos" href="pedidos.html">
-        <p> Ver Pedidos Anteriores </p>
-    </a>
+  <a class="btnVerPedidos" href="pedidos.html">
+    <p>Ver mis pedidos</p>
+  </a>
 </section>
 
 <section id="contenidoPaginaProductos">
-    <h1> Productos </h1>
+  <h1>Productos</h1>
 
-    <div class="listaCategorias">
-        <select id="selectCategoria">
-            <option value="0">-- Selecciona una categoría --</option>
-            <option value="1"> Comida</option>
-            <option value="2"> Papelería</option>
-        </select>
-    </div>
+  <div class="listaCategorias">
+    <select id="selectCategoria">
+      <option value="0">-- Selecciona una categoría --</option>
+      <option value="1">Comida</option>
+      <option value="2">Papelería</option>
+    </select>
+  </div>
+  <script src="logicaFake/cargarProductos.js"></script>
+  <script src="logicaFake/cargarProductosCategoria.js"></script>
+  <script>
+    // This function contains the repeated logic for displaying products
+    const displayProducts = (data) => {
+      const contenidoPaginaProductos = document.getElementById(
+              "contenidoPaginaProductos"
+      );
+      document.querySelectorAll(".producto").forEach((e) => e.remove());
 
-    <script>
+      data.forEach((product) => {
+        const productDiv = document.createElement("div");
+        const imgProductoDiv = document.createElement("div");
+        const contenidoProductoDiv = document.createElement("div");
+        const informacionProductoDiv = document.createElement("div");
+        const textoProductoDiv = document.createElement("div");
+        const precioProducto = document.createElement("h2");
+        const botonAnyadirAlPedido = document.createElement("a");
+        const textoBoton = document.createElement("p");
 
-        // Llamada para cargar todos los productos
-        const apiEndpoint = 'http://localhost:8080/f/cargarProductos.js';
+        productDiv.className = "producto";
+        imgProductoDiv.className = "imgProducto";
+        contenidoProductoDiv.className = "contenidoProducto";
+        informacionProductoDiv.className = "informacionProducto";
+        textoProductoDiv.className = "textoProducto";
+        botonAnyadirAlPedido.className = "botonAnyadirAlPedido";
 
-        // Función cargar los productos dependiendo de la categoría seleccionada
-        const fetchAndDisplayProducts = (categoryUrl) => {
-            fetch(categoryUrl)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Error in server response: ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const contenidoPaginaProductos = document.getElementById('contenidoPaginaProductos');
-                    document.querySelectorAll('.producto').forEach(e => e.remove());
+        textoProductoDiv.innerHTML = `<h2>${product.ProductName}</h2><p>${product.CategoryName}</p>`;
+        precioProducto.textContent = `${product.Price}€`;
+        textoBoton.textContent = "Ver producto";
 
-                    data.forEach(product => {
-                        const productDiv = document.createElement('div');
-                        const imgProductoDiv = document.createElement('div');
-                        const contenidoProductoDiv = document.createElement('div');
-                        const informacionProductoDiv = document.createElement('div');
-                        const textoProductoDiv = document.createElement('div');
-                        const precioProducto = document.createElement('h2');
-                        const botonAnyadirAlPedido = document.createElement('a');
-                        const textoBoton = document.createElement('p');
+        informacionProductoDiv.appendChild(textoProductoDiv);
+        informacionProductoDiv.appendChild(precioProducto);
+        botonAnyadirAlPedido.appendChild(textoBoton);
+        contenidoProductoDiv.appendChild(informacionProductoDiv);
+        contenidoProductoDiv.appendChild(botonAnyadirAlPedido);
+        productDiv.appendChild(imgProductoDiv);
+        productDiv.appendChild(contenidoProductoDiv);
 
-                        productDiv.className = "producto";
-                        imgProductoDiv.className = "imgProducto";
-                        contenidoProductoDiv.className = "contenidoProducto";
-                        informacionProductoDiv.className = "informacionProducto";
-                        textoProductoDiv.className = "textoProducto";
-                        botonAnyadirAlPedido.className = "botonAnyadirAlPedido";
+        contenidoPaginaProductos.appendChild(productDiv);
 
-                        textoProductoDiv.innerHTML = `<h2>${product.ProductName}</h2><p>${product.CategoryName}</p>`;
-                        precioProducto.textContent = `${product.Price}€`;
-                        textoBoton.textContent = "Ver producto";
+        botonAnyadirAlPedido.addEventListener("click", function () {
+          localStorage.setItem("selectedProduct", JSON.stringify(product));
+          window.location.href = "paginaProducto.html";
+        });
+      });
+    };
 
-                        informacionProductoDiv.appendChild(textoProductoDiv);
-                        informacionProductoDiv.appendChild(precioProducto);
-                        botonAnyadirAlPedido.appendChild(textoBoton);
-                        contenidoProductoDiv.appendChild(informacionProductoDiv);
-                        contenidoProductoDiv.appendChild(botonAnyadirAlPedido);
-                        productDiv.appendChild(imgProductoDiv);
-                        productDiv.appendChild(contenidoProductoDiv);
-
-                        contenidoPaginaProductos.appendChild(productDiv);
-
-                        botonAnyadirAlPedido.addEventListener('click', function() {
-                            localStorage.setItem('selectedProduct', JSON.stringify(product));
-                            window.location.href = 'paginaProducto.html';
-                        });
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+    const fetchAndDisplayProducts = () => {
+      cargarProductos({}, function (err, data) {
+        if (err) {
+          console.error("Error:", err);
+          return;
         }
 
-        // Inicialmente cargamos todos los productos
-        fetchAndDisplayProducts(apiEndpoint);
+        displayProducts(data);
+      });
+    };
 
-        document.getElementById('selectCategoria').addEventListener('change', function() {
-            const categoriaSeleccionada = this.value;
+    const fetchAndDisplayProductsByCategory = (categoriaSeleccionada) => {
+      cargarProductosCategoria(
+              { CategoryID: categoriaSeleccionada },
+              function (err, data) {
+                if (err) {
+                  console.error("Error:", err);
+                  return;
+                }
 
-            // Si no hay ninguna categoría seleccionada, que cargue todos los productos
-            if (categoriaSeleccionada === "0") {
-                fetchAndDisplayProducts(apiEndpoint);
-            } else {
-                // Carga los productos en función de la categoría
-                const apiEndpointCategoria = 'http://localhost:8080/cargarProductosCategoria/' + categoriaSeleccionada;
-                fetchAndDisplayProducts(apiEndpointCategoria);
-            }
-        });
-    </script>
+                displayProducts(data);
+              }
+      );
+    };
+
+    // Initially load all products
+    fetchAndDisplayProducts();
+
+    document
+            .getElementById("selectCategoria")
+            .addEventListener("change", function () {
+              const categoriaSeleccionada = this.value;
+
+              // If no category is selected, load all products
+              if (categoriaSeleccionada === "0") {
+                fetchAndDisplayProducts();
+              } else {
+                // Load products based on the category
+                fetchAndDisplayProductsByCategory(categoriaSeleccionada);
+              }
+            });
+  </script>
 </section>
-
 </body>
 </html>

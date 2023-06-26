@@ -75,15 +75,16 @@ function cargarReglasUniversales(servidorExpress, laLogica) {
 
   //GET cargarProductosCategoria
   servidorExpress.get(
-    "/cargarProductosCategoria/:CategoryID",
+    "/cargarProductosCategoria.js/",
     async function (peticion, respuesta) {
       console.log(" * GET /cargarProductosCategoria");
-
+      //console.log(peticion.params.CategoryID);
       try {
         var argumentos = null;
 
+        // get CategoryID from query parameters
 
-        argumentos = { CategoryID: peticion.params.CategoryID };
+        argumentos = { CategoryID: peticion.query.CategoryID };
         //console.log(argumentos);
 
         var res = await laLogica.llamar(
@@ -101,6 +102,32 @@ function cargarReglasUniversales(servidorExpress, laLogica) {
       }
     }
   );
+
+  servidorExpress.get("/login.js/", async function (peticion, respuesta) {
+    console.log(" * GET /login");
+    //console.log(peticion.params.CategoryID);
+    try {
+      var argumentos = null;
+
+      // get CategoryID from query parameters
+
+      argumentos = {
+        ContactName: peticion.query.ContactName,
+        password: peticion.query.password,
+      };
+      //console.log(argumentos);
+
+      var res = await laLogica.llamar("login.js", argumentos);
+
+      var laRespuesta = res;
+      try {
+        laRespuesta = JSON.stringify(laRespuesta);
+      } catch {}
+      respuesta.send(laRespuesta);
+    } catch (error) {
+      respuesta.send(JSON.stringify({ error: error }));
+    }
+  });
 
   // .......................................................
   // POST /f/<nombreFuncion>

@@ -1,8 +1,6 @@
 // ---------------------------------------------------
 // fake
 // ---------------------------------------------------
-function cargarProductos( datos, cb ) {
-
-	llamar( "/f/cargarProductos", datos, cb )
-
+function cargarProductos(datos, cb) {
+  llamarGET("/f/cargarProductos.js", datos, cb);
 } // ()
