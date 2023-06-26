@@ -1,8 +1,8 @@
 // ---------------------------------------------------
 // fake
 // ---------------------------------------------------
-function prueba( cb ) {
+function cargarProductosPedido( datos, cb ) {
 
-	llamar( "/f/prueba", null, cb )
+	llamar( "/f/cargarProductosPedido", datos, cb )
 
 } // ()

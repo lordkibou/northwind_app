@@ -1,8 +1,8 @@
 // ---------------------------------------------------
 // fake
 // ---------------------------------------------------
-function insertarPersona( datos, cb ) {
+function cargarPedidos( datos, cb ) {
 
-	llamar( "/f/insertarPersona", datos, cb )
+	llamar( "/f/cargarPedidos", datos, cb )
 
 } // ()
