@@ -129,6 +129,90 @@ function cargarReglasUniversales(servidorExpress, laLogica) {
     }
   });
 
+  servidorExpress.get(
+    "/cargarProductosPedido.js/",
+    async function (peticion, respuesta) {
+      console.log(" * GET /cargarProductosPedido");
+      //console.log(peticion.params.CategoryID);
+      try {
+        var argumentos = null;
+
+        // get CategoryID from query parameters
+
+        argumentos = {
+          CustomerID: peticion.query.CustomerID,
+        };
+        console.log(argumentos);
+
+        var res = await laLogica.llamar("cargarProductosPedido.js", argumentos);
+
+        var laRespuesta = res;
+        try {
+          laRespuesta = JSON.stringify(laRespuesta);
+        } catch {}
+        respuesta.send(laRespuesta);
+      } catch (error) {
+        respuesta.send(JSON.stringify({ error: error }));
+      }
+    }
+  );
+
+  servidorExpress.get(
+    "/cargarPedidos.js/",
+    async function (peticion, respuesta) {
+      console.log(" * GET /cargarPedidos");
+      //console.log(peticion.params.CategoryID);
+      try {
+        var argumentos = null;
+
+        // get CategoryID from query parameters
+
+        argumentos = {
+          CustomerID: peticion.query.CustomerID,
+        };
+        console.log(argumentos);
+
+        var res = await laLogica.llamar("cargarPedidos.js", argumentos);
+
+        var laRespuesta = res;
+        try {
+          laRespuesta = JSON.stringify(laRespuesta);
+        } catch {}
+        respuesta.send(laRespuesta);
+      } catch (error) {
+        respuesta.send(JSON.stringify({ error: error }));
+      }
+    }
+  );
+
+  servidorExpress.get(
+    "/cargarDetallesPedido.js/",
+    async function (peticion, respuesta) {
+      console.log(" * GET /cargarDetallesPedido");
+      //console.log(peticion.params.CategoryID);
+      try {
+        var argumentos = null;
+
+        // get CategoryID from query parameters
+
+        argumentos = {
+          OrderId: peticion.query.OrderId,
+        };
+        console.log(argumentos);
+
+        var res = await laLogica.llamar("cargarDetallesPedido.js", argumentos);
+
+        var laRespuesta = res;
+        try {
+          laRespuesta = JSON.stringify(laRespuesta);
+        } catch {}
+        respuesta.send(laRespuesta);
+      } catch (error) {
+        respuesta.send(JSON.stringify({ error: error }));
+      }
+    }
+  );
+
   // .......................................................
   // POST /f/<nombreFuncion>
   // .......................................................

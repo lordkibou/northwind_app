@@ -1,27 +1,4 @@
-/* Insertar personas */
-insert into Customers values (000000001, 'Marta Sanchez', 'Marta');
-insert into Customers values (000000002, 'Carmen Fernandez', 'Carmen');
 
-/* Insertar pedidos */
-insert into Orders values (001, 000000001, '26-02-2023');
-insert into Orders values (002, 000000001, '23-04-2023');
-insert into Orders values (003, 000000002, '13-01-2023');
-
-/* Insertar orderDetails */
-insert into OrderDetails values (0001, 001, 000001, 1);
-insert into OrderDetails values (0002, 001, 000002, 3);
-insert into OrderDetails values (0003, 002, 000004, 2);
-insert into OrderDetails values (0004, 003, 000003, 1);
-
-/* Insertar productos */
-insert into Products values (000001, 'Platanos', 01, 'unidad', 2.2);
-insert into Products values (000002, 'Libreta', 02, 'unidad', 5.09);
-insert into Products values (000003, 'Cocacola', 01, 'ml', 1.9);
-insert into Products values (000004, 'Lápiz', 02, 'unidad', 1.2);
-
-/* Insertar categorias */
-insert into Categories  values (01, 'Comida', 'Alimentación');
-insert into Categories values (02, 'Papeleria', 'Papeleria y hogar');
 
 /* Tenemos:
    Marta ha hehco dos pedidos:
@@ -32,4 +9,33 @@ insert into Categories values (02, 'Papeleria', 'Papeleria y hogar');
 
 
 
+
+/* Insert customers */
+INSERT INTO Customers (CustomerID, CustomerName, ContactName) VALUES (1, 'Marta Sanchez', 'Marta');
+INSERT INTO Customers (CustomerID, CustomerName, ContactName) VALUES (2, 'Carmen Fernandez', 'Carmen');
+
+/* Insert orders */
+INSERT INTO Orders (CustomerID, OrderDate) VALUES (2, '2023-01-13');
+INSERT INTO Orders (CustomerID, OrderDate) VALUES (1, '2023-02-26');
+
+
+/* Insert products */
+INSERT INTO Products (ProductID, ProductName, CategoryID, Unit, Price) VALUES (1, 'Platanos', 1, 'unidad', 2.2);
+INSERT INTO Products (ProductID, ProductName, CategoryID, Unit, Price) VALUES (2, 'Libreta', 2, 'unidad', 5.09);
+INSERT INTO Products (ProductID, ProductName, CategoryID, Unit, Price) VALUES (3, 'Cocacola', 1, 'ml', 1.9);
+INSERT INTO Products (ProductID, ProductName, CategoryID, Unit, Price) VALUES (4, 'Lápiz', 2, 'unidad', 1.2);
+
+/* Insert categories */
+INSERT INTO Categories (CategoryId, CategoryName, Description) VALUES (1, 'Comida', 'Alimentación');
+INSERT INTO Categories (CategoryId, CategoryName, Description) VALUES (2, 'Papeleria', 'Papeleria y hogar');
+
+/* Insert order details */
+INSERT INTO OrderDetails (OrderId, ProductId, Quantity) VALUES (1, 1, 1);
+INSERT INTO OrderDetails (OrderId, ProductId, Quantity) VALUES (1, 2, 3);
+INSERT INTO OrderDetails (OrderId, ProductId, Quantity) VALUES (2, 4, 2);
+INSERT INTO OrderDetails (OrderId, ProductId, Quantity) VALUES (3, 3, 1);
+
+/* Insert login details */
+INSERT INTO login (CustomerID, password) VALUES (1, 'password1');
+INSERT INTO login (CustomerID, password) VALUES (2, 'password2');
 

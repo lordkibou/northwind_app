@@ -6,6 +6,7 @@
 function llamarGET(nombreFuncion, parametrosLlamada, cb) {
   // preparar la llamada remota
   console.log(nombreFuncion);
+  console.log(parametrosLlamada);
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     // callback para cuando llegue la respuesta
@@ -46,6 +47,7 @@ function llamarGET(nombreFuncion, parametrosLlamada, cb) {
   //
   var url =
     nombreFuncion + "?" + new URLSearchParams(parametrosLlamada).toString();
+  console.log(url);
   xmlhttp.open("GET", url, true);
   xmlhttp.send();
 } // ()

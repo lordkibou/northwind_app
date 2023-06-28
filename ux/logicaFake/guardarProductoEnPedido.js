@@ -1,8 +1,6 @@
 // ---------------------------------------------------
 // fake
 // ---------------------------------------------------
-function guardarProductoEnPedido( datos, cb ) {
-
-	llamar( "/f/guardarProductoEnPedido", datos, cb )
-
+function guardarProductoEnPedido(datos, cb) {
+  llamar("/f/guardarProductoEnPedido.js", datos, cb);
 } // ()

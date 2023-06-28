@@ -1,67 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Detalles </title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-<section id="headerDetallesDelPedido">
-    <a href="pedidos.html" class="btnVolver">
-        <p> Volver </p>
-    </a>
-</section>
-<section class="contenidoDetallesPedido">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalles</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="logicaFake/cargarDetallesPedido.js"></script>
+    <script src="logicaFake/llamarGET.js"></script>
+  </head>
+  <body>
+    <section id="headerDetallesDelPedido">
+      <a href="pedidos.html" class="btnVolver">
+        <p>Volver</p>
+      </a>
+    </section>
+    <section class="contenidoDetallesPedido">
+      <h1>Detalles del Pedido</h1>
+      <h3 id="orderId">ID: #000000001</h3>
+      <h3 id="orderDate">Fecha: 26/03/2023</h3>
 
-    <h1> Detalles del Pedido </h1>
-    <h3> ID: #000000001 </h3>
-    <h3> Fecha: 26/03/2023 </h3>
+    </section>
 
-    <div class="productoPedido">
-        <div class="imgProducto"><img></div>
-        <div class="contenidoProducto">
-            <div class="informacionProducto">
-                <div class="textoProducto">
-                    <h2> Plátanos </h2>
-                    <p> Comida </p>
-                </div>
-                <p> Cantidad: 01 </p>
+    <script>
+      window.onload = function () {
+        const orderId = localStorage.getItem("idSelectedOrder");
+        console.log(orderId);
+        cargarDetallesPedido({ OrderId: orderId }, function (err, data) {
+          if (err) {
+            console.error("Error:", err);
+            return;
+          }
 
-            </div>
-            <div class="precio">
-                <div class="precioContenido">
-                    <p> Total: </p>
-                    <h3> 2,3€ </h3>
-                </div>
-            </div>
-        </div>
-    </div>
+          document.getElementById(
+            "orderId"
+          ).textContent = `ID: #${data[0].OrderId}`;
+          const date = new Date(data[0].OrderDate);
+          const day = ("0" + date.getDate()).slice(-2);
+          const month = ("0" + (date.getMonth() + 1)).slice(-2);
+          const year = date.getFullYear();
+          const formattedDate = `${day}/${month}/${year}`;
+          document.getElementById(
+            "orderDate"
+          ).textContent = `Fecha: ${formattedDate}`;
 
-    <div class="productoPedido">
-        <div class="imgProducto"><img></div>
-        <div class="contenidoProducto">
-            <div class="informacionProducto">
-                <div class="textoProducto">
-                    <h2> Plátanos </h2>
-                    <p> Comida </p>
-                </div>
-                <p> Cantidad: 01 </p>
+          const contenidoDetallesPedido = document.querySelector(
+            ".contenidoDetallesPedido"
+          );
 
-            </div>
-            <div class="precio">
-                <div class="precioContenido">
-                    <p> Total: </p>
-                    <h3> 2,3€ </h3>
-                </div>
-            </div>
-        </div>
-    </div>
+          let totalOrderPrice = 0;
 
+          data.forEach((item) => {
+            const productoPedidoDiv = document.createElement("div");
+            productoPedidoDiv.className = "productoPedido";
 
+            // Add an empty image for now. You can change this as per your requirements
+            const imgProductoDiv = document.createElement("div");
+            imgProductoDiv.className = "imgProducto";
+            const imgElement = document.createElement("img");
+            imgProductoDiv.appendChild(imgElement);
 
-</section>
+            const contenidoProductoDiv = document.createElement("div");
+            contenidoProductoDiv.className = "contenidoProducto";
 
-</body>
+            const informacionProductoDiv = document.createElement("div");
+            informacionProductoDiv.className = "informacionProducto";
+
+            const textoProductoDiv = document.createElement("div");
+            textoProductoDiv.className = "textoProducto";
+            const h2 = document.createElement("h2");
+            h2.textContent = item.ProductName;
+            const p = document.createElement("p");
+            p.textContent = `Cantidad: ${item.Quantity}`;
+            textoProductoDiv.appendChild(h2);
+            textoProductoDiv.appendChild(p);
+
+            informacionProductoDiv.appendChild(textoProductoDiv);
+
+            const precioDiv = document.createElement("div");
+            precioDiv.className = "precio";
+            const precioContenidoDiv = document.createElement("div");
+            precioContenidoDiv.className = "precioContenido";
+            const totalP = document.createElement("p");
+            totalP.textContent = `Total: `;
+            const priceH3 = document.createElement("h3");
+            priceH3.textContent = `${item.TotalProductPrice.toFixed(2)}€`;
+            precioContenidoDiv.appendChild(totalP);
+            precioContenidoDiv.appendChild(priceH3);
+            precioDiv.appendChild(precioContenidoDiv);
+
+            contenidoProductoDiv.appendChild(informacionProductoDiv);
+            contenidoProductoDiv.appendChild(precioDiv);
+
+            productoPedidoDiv.appendChild(imgProductoDiv);
+            productoPedidoDiv.appendChild(contenidoProductoDiv);
+
+            contenidoDetallesPedido.appendChild(productoPedidoDiv);
+
+            totalOrderPrice += item.TotalProductPrice;
+          });
+
+          const totalP = document.createElement("p");
+          totalP.className = "precioTotal";
+          totalP.textContent = `Total del pedido: ${totalOrderPrice.toFixed(
+            2
+          )}€`;
+          contenidoDetallesPedido.appendChild(totalP);
+        });
+      };
+    </script>
+  </body>
 </html>

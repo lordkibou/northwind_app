@@ -30,6 +30,7 @@ select {
 #contenidoPaginaProductos {
     margin: -5% 10% 10% 10%;
     height: auto;
+    padding-bottom: 50px;
 }
 
 
@@ -182,6 +183,7 @@ select {
 
 .contenidoVistaProducto {
     margin: 10%;
+
 }
 
 .imgVistaProducto {
@@ -267,6 +269,7 @@ select {
     margin-right: 10%;
     margin-top: 4%;
     margin-bottom: 4%;
+
 }
 
 .contenedorPedidoActual {
@@ -299,6 +302,7 @@ select {
     margin-top: 1%;
     margin-right: 10%;
     margin-left: 10%;
+    padding-bottom: 50px;
 }
 
 .btnFinalizarPedido {
@@ -446,6 +450,16 @@ select {
     border-radius: 25px;
     display: inline-flex;
     align-items: center;
+}
+
+.precioTotal {
+    width: 100%;
+    font-weight: bold;
+    margin-top: 40px;
+    padding-bottom: 50px;
+    font-size: 20pt;
+    text-align: right;
+    margin-left: auto;
 }
 
 

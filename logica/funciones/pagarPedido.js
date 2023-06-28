@@ -4,22 +4,18 @@
 //                                              pagarPedido() --->
 // ----------------------------------------------------------------------------
 
-module.exports =  async function pagarPedido( datos ) {
+module.exports = async function pagarPedido(datos) {
+  // tengo "inyectada" también xxx.logica para poder llamar a funciones "hermanas"
+  //         this.logica.funciones.loQueSea.f()
 
-    // tengo "inyectada" también xxx.logica para poder llamar a funciones "hermanas"
-    //         this.logica.funciones.loQueSea.f()
+  var textoSQL = `INSERT INTO Orders (CustomerID, OrderDate)
+        VALUES ($CustomerID, date('now'));
+        `;
+  var valoresParaSQL = { $CustomerID: datos.CustomerID };
 
-    var textoSQL =
-        `UPDATE Orders
-        SET OrderDate = $OrderDate
-        ORDER BY OrderId DESC
-        LIMIT 1;`
-    var valoresParaSQL = {$OrderDate: datos.OrderDate}
-
-    return new Promise( (resolver, rechazar) => {
-        pagarPedido.conexion.run( textoSQL, valoresParaSQL, function( err ) {
-            ( err ? rechazar(err) : resolver() )
-        })
-    })
-
-} // ()
+  return new Promise((resolver, rechazar) => {
+    pagarPedido.conexion.run(textoSQL, valoresParaSQL, function (err) {
+      err ? rechazar(err) : resolver();
+    });
+  });
+}; // ()

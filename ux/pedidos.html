@@ -1,80 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Pedidos </title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pedidos</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="logicaFake/cargarProductosPedido.js"></script>
+    <script src="logicaFake/pagarPedido.js"></script>
+    <script src="logicaFake/cargarPedidos.js"></script>
+    <script src="logicaFake/llamarGET.js"></script>
+    <script src="logicaFake/llamar.js"></script>
+  </head>
+  <body>
+    <section id="headerPedidos">
+      <a href="index.html" class="btnVolver">
+        <p>Volver</p>
+      </a>
+    </section>
 
-</head>
-<body>
+    <section id="pedidoActual">
+      <div class="contenedorPedidoActual"></div>
+    </section>
 
-<section id="headerPedidos">
-    <a href="index.html" class="btnVolver">
-        <p> Volver </p>
-    </a>
-</section>
+    <section class="contenidoPedidos">
+      <h1>Mis pedidos anteriores</h1>
 
-<section id="pedidoActual">
-    <div class="contenedorPedidoActual">
-        <h2> Productos del pedido en curso: </h2>
-        <div class="productoAnyadido">
-            <p> Nombre Producto </p>
-            <p> Cantidad: 01 </p>
-            <p> Precio: 2,2€ </p>
-        </div>
-        <div class="productoAnyadido">
-            <p> Nombre Producto </p>
-            <p> Cantidad: 01 </p>
-            <p> Precio: 2,2€ </p>
-        </div>
-        <div class="productoAnyadido">
-            <p> Nombre Producto </p>
-            <p> Cantidad: 01 </p>
-            <p> Precio: 2,2€ </p>
-        </div>
-        <a class="btnFinalizarPedido">
-            <p> Finalizar Pedido </p>
-        </a>
-    </div>
-</section>
-
-<section class="contenidoPedidos">
-    <h1> Mis pedidos anteriores</h1>
-
-    <div class="infoPedido">
+      <div class="infoPedido">
         <div class="infoIzquierda">
-            <h2> Detalles </h2>
-            <p> ID: #000000001 </p>
-            <p> Fecha: 26/02/2022 </p>
+          <h2>Detalles</h2>
+          <p>ID: #000000001</p>
+          <p>Fecha: 26/02/2022</p>
         </div>
         <div class="infoDerecha">
-            <p> Total: </p>
-            <h2> 23,5€ </h2>
+          <p>Total:</p>
+          <h2>23,5€</h2>
 
-            <a href="detallesPedido.html" class="btnVerPedido">
-                <p> Ver pedido </p>
-            </a>
+          <a href="detallesPedido.html" class="btnVerPedido">
+            <p>Ver pedido</p>
+          </a>
         </div>
-    </div>
+      </div>
 
-    <div class="infoPedido">
+      <div class="infoPedido">
         <div class="infoIzquierda">
-            <h2> Detalles </h2>
-            <p> ID: #000000001 </p>
-            <p> Fecha: 26/02/2022 </p>
+          <h2>Detalles</h2>
+          <p>ID: #000000001</p>
+          <p>Fecha: 26/02/2022</p>
         </div>
         <div class="infoDerecha">
-            <p> Total: </p>
-            <h2> 23,5€ </h2>
+          <p>Total:</p>
+          <h2>23,5€</h2>
 
-            <a href="detallesPedido.html" class="btnVerPedido">
-                <p> Ver pedido </p>
-            </a>
+          <a href="detallesPedido.html" class="btnVerPedido">
+            <p>Ver pedido</p>
+          </a>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-</body>
+    <script>
+      window.onload = function () {
+        const datosPedido = {
+          CustomerID: localStorage.getItem("CustomerID"),
+        };
+        cargarProductosPedido(datosPedido, function (err, data) {
+          if (err) {
+            console.error("Error:", err);
+            return;
+          }
+
+          // Get the container for the products
+          const contenedorPedidoActual = document.querySelector(
+            ".contenedorPedidoActual"
+          );
+
+          // Clear out the existing content in the container
+          contenedorPedidoActual.innerHTML =
+            "<h2> Productos del pedido en curso: </h2>";
+
+          // Loop through the data
+          data.forEach((item) => {
+            // Create a new product div
+            const productDiv = document.createElement("div");
+            productDiv.className = "productoAnyadido";
+
+            // Create the HTML for the product
+            const productName = document.createElement("p");
+            productName.textContent = item.ProductName;
+            const productQuantity = document.createElement("p");
+            productQuantity.textContent = `Cantidad: ${item.Quantity}`;
+            const productPrice = document.createElement("p");
+            productPrice.textContent = `Precio: ${item.TotalPrice.toFixed(2)}€`;
+
+            // Append the product details to the product div
+            productDiv.appendChild(productName);
+            productDiv.appendChild(productQuantity);
+            productDiv.appendChild(productPrice);
+
+            // Append the product div to the container
+            contenedorPedidoActual.appendChild(productDiv);
+          });
+
+          // Add the finalizar pedido button at the end
+          const finalizarPedidoButton = document.createElement("a");
+          finalizarPedidoButton.className = "btnFinalizarPedido";
+          const finalizarPedidoText = document.createElement("p");
+          finalizarPedidoText.textContent = "Finalizar Pedido";
+          finalizarPedidoButton.appendChild(finalizarPedidoText);
+          contenedorPedidoActual.appendChild(finalizarPedidoButton);
+          finalizarPedidoButton.addEventListener("click", function () {
+            if (data.length > 0) {
+              pagarPedido(datosPedido, function (err, data) {
+                if (err) {
+                  console.error("Error:", err);
+                  return;
+                }
+                location.reload();
+              });
+            }
+          });
+        });
+
+        // Load data for contenidoPedidos
+        cargarPedidos(datosPedido, function (err, data) {
+          if (err) {
+            console.error("Error:", err);
+            return;
+          }
+
+          // Assuming data is an array of pedidos
+          const contenidoPedidos = document.querySelector(".contenidoPedidos");
+
+          // Clear out the existing content in the container
+          contenidoPedidos.innerHTML = "<h1>Mis pedidos anteriores</h1>";
+
+          // Loop through the data
+          data.forEach((pedido) => {
+            const infoPedidoDiv = document.createElement("div");
+            infoPedidoDiv.className = "infoPedido";
+
+            const infoIzquierdaDiv = document.createElement("div");
+            infoIzquierdaDiv.className = "infoIzquierda";
+
+            const detallesH2 = document.createElement("h2");
+            detallesH2.textContent = "Detalles";
+
+            const idP = document.createElement("p");
+            idP.textContent = `ID: #${pedido.OrderId}`;
+
+            const date = new Date(pedido.OrderDate);
+            const day = ("0" + date.getDate()).slice(-2);
+            const month = ("0" + (date.getMonth() + 1)).slice(-2); // Months are zero-based
+            const year = date.getFullYear();
+            const formattedDate = `${day}/${month}/${year}`;
+
+            const fechaP = document.createElement("p");
+            fechaP.textContent = `Fecha: ${formattedDate}`;
+
+            infoIzquierdaDiv.appendChild(detallesH2);
+            infoIzquierdaDiv.appendChild(idP);
+            infoIzquierdaDiv.appendChild(fechaP);
+
+            const infoDerechaDiv = document.createElement("div");
+            infoDerechaDiv.className = "infoDerecha";
+
+            const totalP = document.createElement("p");
+            totalP.textContent = "Total:";
+
+            const priceH2 = document.createElement("h2");
+            priceH2.textContent = `${pedido.TotalPrice.toFixed(2)}€`;
+
+            infoDerechaDiv.appendChild(totalP);
+            infoDerechaDiv.appendChild(priceH2);
+
+            const verPedidoLink = document.createElement("a");
+            verPedidoLink.href = "detallesPedido.html";
+            verPedidoLink.className = "btnVerPedido";
+            verPedidoLink.textContent = "Ver pedido";
+            verPedidoLink.addEventListener("click", function () {
+              localStorage.setItem("idSelectedOrder", pedido.OrderId);
+            });
+
+            infoDerechaDiv.appendChild(verPedidoLink);
+
+            infoPedidoDiv.appendChild(infoIzquierdaDiv);
+            infoPedidoDiv.appendChild(infoDerechaDiv);
+
+            contenidoPedidos.appendChild(infoPedidoDiv);
+          });
+        });
+      };
+    </script>
+  </body>
 </html>

@@ -1,56 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Login </title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
     <script src="logicaFake/llamarGET.js"></script>
+  </head>
+  <body>
+    <section id="contenidoLogin">
+      <h1>Inicia sesión</h1>
+      <form>
+        <input
+          type="text"
+          id="nombreUsuario"
+          placeholder="Introduce tu nombre de usuario"
+        />
+        <input
+          type="text"
+          id="contrasenyaUsuario"
+          placeholder="Introduce tu contraseña"
+        />
+      </form>
 
-</head>
-<body>
+      <a id="btnIniciarSesion"><p>Acceder</p></a>
+    </section>
 
-
-<section id="contenidoLogin">
-    <h1> Inicia sesión </h1>
-    <form>
-        <input type="text" id="nombreUsuario" placeholder="Introduce tu nombre de usuario">
-        <input type="text" id="contrasenyaUsuario" placeholder="Introduce tu contraseña">
-    </form>
-
-    <a id="btnIniciarSesion"><p> Acceder </p></a>
-
-</section>
-
-<script src="logicaFake/login.js"></script>
-<script>
-    const inicioSesion = (nombreUsuario, passwordUsuario) => {
+    <script src="logicaFake/login.js"></script>
+    <script>
+      const inicioSesion = (nombreUsuario, passwordUsuario) => {
         login(
-            {ContactName: nombreUsuario, password: passwordUsuario},
-            function (err, data) {
-                if (err) {
-                    console.error("Error:", err);
-                    return;
-                }
-                if (data[0].CustomerID !== -1) {
-
-                    sessionStorage.setItem('CustomerID', data[0].CustomerID);
-                    window.location.href = 'index.html';
-                }
+          { ContactName: nombreUsuario, password: passwordUsuario },
+          function (err, data) {
+            if (err) {
+              console.error("Error:", err);
+              return;
             }
-        )
-    };
+            if (data[0].CustomerID !== -1) {
+              localStorage.setItem("CustomerID", data[0].CustomerID);
+              window.location.href = "index.html";
+            }
+          }
+        );
+      };
 
-    document.getElementById('btnIniciarSesion').addEventListener('click', () => {
-        // Los valores de los inputs
-        const nombreUsuario = document.getElementById('nombreUsuario').value;
-        const contrasenyaUsuario = document.getElementById('contrasenyaUsuario').value;
+      document
+        .getElementById("btnIniciarSesion")
+        .addEventListener("click", () => {
+          // Los valores de los inputs
+          const nombreUsuario = document.getElementById("nombreUsuario").value;
+          const contrasenyaUsuario =
+            document.getElementById("contrasenyaUsuario").value;
 
-        inicioSesion(nombreUsuario, contrasenyaUsuario);
-    });
-</script>
-
-
-</body>
+          inicioSesion(nombreUsuario, contrasenyaUsuario);
+        });
+    </script>
+  </body>
 </html>

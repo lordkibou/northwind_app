@@ -1,6 +1,6 @@
 // ---------------------------------------------------
 // fake
 // ---------------------------------------------------
-function pagarPedido(datos, cb) {
-  llamar("/f/pagarPedido.js", datos, cb);
+function cargarDetallesPedido(datos, cb) {
+  llamarGET("/cargarDetallesPedido.js", datos, cb);
 } // ()

@@ -1,52 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Producto </title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
-<section class="contenidoVistaProducto">
-    <div class="imgVistaProducto">
-    </div>
-    <div class="contenedorTextoVistaProducto">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Producto</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+
+    <script src="logicaFake/guardarProductoEnPedido.js"></script>
+    <script src="logicaFake/llamar.js"></script>
+  </head>
+  <body>
+    <section class="contenidoVistaProducto">
+      <div class="imgVistaProducto"></div>
+      <div class="contenedorTextoVistaProducto">
         <div class="contenedorIzquierda">
-            <!-- Se añade de forma dinámica más abajo -->
+          <!-- Se añade de forma dinámica más abajo -->
         </div>
         <!-- Se añade de forma dinámica más abajo -->
-    </div>
-    <p id="productDescription">
+      </div>
+      <p id="productDescription">
         <!-- Se añade de forma dinámica más abajo -->
-    </p>
-    <div class="contenedorInteractuables">
+      </p>
+      <div class="contenedorInteractuables">
         <div class="selectCantidad">
-            <select id="selectQuantity">
-                <!-- Se añade de forma dinámica más abajo -->
-            </select>
+          <select id="selectQuantity">
+            <!-- Se añade de forma dinámica más abajo -->
+          </select>
         </div>
         <button class="anyadirProducto" onclick="addToCart()">
-            <p> Añadir producto al carrito </p>
+          <p>Añadir producto al carrito</p>
         </button>
-    </div>
-</section>
+      </div>
+    </section>
 
-<!-------------------- Añadimos el html dinámico ---------------------->
-<script>
-    window.onload = function() {
-        const product = JSON.parse(localStorage.getItem('selectedProduct'));
+    <!-------------------- Añadimos el html dinámico ---------------------->
+    <script>
+      const addToCart = () => {
+        const product = JSON.parse(localStorage.getItem("selectedProduct"));
+        const CustomerID = localStorage.getItem("CustomerID");
 
-        const imgVistaProducto = document.querySelector('.imgVistaProducto');
-        const contenedorIzquierda = document.querySelector('.contenedorIzquierda');
-        const contenedorTextoVistaProducto = document.querySelector('.contenedorTextoVistaProducto');
-        const productDescription = document.getElementById('productDescription');
-        const selectQuantity = document.getElementById('selectQuantity');
+        const selectedQuantity =
+          document.getElementById("selectQuantity").value;
 
-        const productImage = document.createElement('img');
-        const productName = document.createElement('h1');
-        const productCategory = document.createElement('h3');
-        const productPrice = document.createElement('h1');
+        datosPedido = {
+          CustomerID: CustomerID,
+          ProductID: product.ProductId,
+          Quantity: selectedQuantity,
+        };
+        guardarProductoEnPedido(datosPedido, function (err, data) {
+          if (err) {
+            console.error("Error:", err);
+            return;
+          }
+
+          window.history.back();
+        });
+      };
+      window.onload = function () {
+        const product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+        const imgVistaProducto = document.querySelector(".imgVistaProducto");
+        const contenedorIzquierda = document.querySelector(
+          ".contenedorIzquierda"
+        );
+        const contenedorTextoVistaProducto = document.querySelector(
+          ".contenedorTextoVistaProducto"
+        );
+        const productDescription =
+          document.getElementById("productDescription");
+        const selectQuantity = document.getElementById("selectQuantity");
+
+        const productImage = document.createElement("img");
+        const productName = document.createElement("h1");
+        const productCategory = document.createElement("h3");
+        const productPrice = document.createElement("h1");
 
         productName.textContent = product.ProductName;
         productCategory.textContent = product.CategoryName;
@@ -60,16 +88,13 @@
         contenedorTextoVistaProducto.appendChild(contenedorIzquierda);
         contenedorTextoVistaProducto.appendChild(productPrice);
 
-
         for (let i = 1; i <= 10; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.textContent = i < 10 ? `0${i}` : i;
-            selectQuantity.appendChild(option);
+          const option = document.createElement("option");
+          option.value = i;
+          option.textContent = i < 10 ? `0${i}` : i;
+          selectQuantity.appendChild(option);
         }
-    }
-
-</script>
-
-</body>
+      };
+    </script>
+  </body>
 </html>
