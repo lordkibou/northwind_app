@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //Simulamos pago, le ponemos fecha, significa que fue pagado en esa fecha, el unico pedido sin fecha es el actual
-//   JSON{OrderDate:Timestamp}-->
+//   JSON{CustomerID}-->
 //                                              pagarPedido() --->
 // ----------------------------------------------------------------------------
 

@@ -71,19 +71,26 @@ describe("Test para las funciones de la logica", () => {
       });
   }); //fin del test concreto
 
-  it("prueba para cargarProductosPedido()", () => {
-    return laLogica
-      .llamar("cargarProductosPedido.js", { CustomerID: 2 })
-      .then((resultado) => {
-          //console.log(resultado);
-        assert.equal(resultado[0].ProductName, "Libreta", "No es lapiz?");
-        assert.equal(resultado[0].Quantity, 6, "No es 2?");
-      })
-      .catch((error) => {
-        //console.error("Error en cargarProductosPedido():", error);
-        assert.fail(error);
-      });
-  }); //fin del test concreto
+  //------------------------------------------------------------------------------
+  // No es necesario un test para cargarProductosPedido() puesto que se usaen el
+  // apartado de las funciones del modelo de negocio y ahi se verifica
+  //  su funcionamiento, ademas, para las pruebas hay que cambiar constantemente
+  //  sus assert.
+  //------------------------------------------------------------------------------
+
+  // it("prueba para cargarProductosPedido()", () => {
+  //   return laLogica
+  //     .llamar("cargarProductosPedido.js", { CustomerID: 2 })
+  //     .then((resultado) => {
+  //         //console.log(resultado);
+  //       assert.equal(resultado[0].ProductName, "Cocacola", "No es Cocacola?");
+  //       assert.equal(resultado[0].Quantity, 3, "No es 3?");
+  //     })
+  //     .catch((error) => {
+  //       //console.error("Error en cargarProductosPedido():", error);
+  //       assert.fail(error);
+  //     });
+  // }); //fin del test concreto
 
   it("prueba para login() correcta", () => {
     return laLogica
@@ -118,28 +125,44 @@ describe("Test para crearPedido(), guardarProductosEnPedido() y pagarPedido()", 
         laLogica = await logica("../bd/datos.bd");
     }); //fin del test concreto
 
-    it("prueba para crearPedido()", () => {
-        return crearPedido({ CustomerID: 1 })
-            .then((resultado) => {
-                return guardarProductoEnPedido()
-                    .then((resultado) => {
+    it("prueba para crear y guardar pedido", () => {
+        return laLogica.llamar("crearPedido.js", { CustomerID: 1 })
+            .then(() => {
+                return laLogica.llamar("guardarProductoEnPedido.js", {
+                    CustomerID: 1,
+                    ProductID: 3,
+                    Quantity: 3
+                } )
+                    .then(() => {
+                        return laLogica.llamar("cargarProductosPedido.js", { CustomerID: 1 })
+                                .then((resultado) => {
+                                    //console.log(resultado);
+                                    assert.equal(resultado[0].ProductName, "Cocacola", "No es lapiz?");
+                                    assert.equal(resultado[0].Quantity, 3, "No es 3?");
+                                })
+                                .catch((error) => {
+                                    //console.log("el error esta en cargarProductos")
+                                    assert.fail(error);
+                                });
                     })
                     .catch((error) => {
-                        console.error("Error en guardarProductoEnPedido():", error);
-                        assert.fail("Test failed due to promise rejection");
+                        assert.fail("Test failed due to promise rejection, no llega a realizarse el guardado");
                     });
             })
             .catch(error => {
-                console.error('Error en crearPedido():', error);
+                assert.fail(error);
+                console.log("no se crea el pedido correctamente si quiera")
             });
     }) //fin del test concreto
 
     it("prueba para pagarPedido()", () => {
-        return pagarPedido()
-            .then((resultado) => {
+        return laLogica.llamar("pagarPedido.js", {CustomerID: 1} )
+            .then(() => {
+                //console.log('Pedido pagado');
             })
             .catch(error => {
-                console.error('Error en pagarPedido():', error);
+                //console.error('Error en pagarPedido():', error);
+                assert.fail(error);
             });
     }) //fin del test concreto
 })
