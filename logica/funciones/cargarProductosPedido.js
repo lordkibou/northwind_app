@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-//   JSON{OrderID:Natural}-->
+//   JSON{CustomerID:Natural}-->
 //                              cargarProductosPedido() <--
 //         <--
 // Lista<JSON{ProductID:Natural, ProductName:Texto, CategoryName:Texto,

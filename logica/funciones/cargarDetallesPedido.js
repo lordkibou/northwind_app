@@ -27,8 +27,8 @@ module.exports = async function cargarPedidos(datos) {
 
     `;
   var valoresParaSQL = {
-    $CustomerID: datos.CustomerID,
-    $OrderId: datos.OrderId,
+    //$CustomerID: datos.CustomerID,
+    $OrderId: datos.OrderId
   };
 
   return new Promise((resolver, rechazar) => {

@@ -4,34 +4,39 @@
 const assert = require("assert");
 
 const logica = require("../logica.js");
-// --------------------------------------------------------------------------------
-// main ()
-// --------------------------------------------------------------------------------
-const cargarPedidos = require("../funciones/cargarPedidos.js");
-const cargarProductos = require("../funciones/cargarProductos.js");
-const cargarProductosCategoria = require("../funciones/cargarProductosCategoria");
-const cargarProductosPedido = require("../funciones/cargarProductosPedido.js");
-const crearPedido = require("../funciones/crearPedido.js");
-const guardarProductoEnPedido = require("../funciones/guardarProductoEnPedido.js");
-const pagarPedido = require("../funciones/pagarPedido.js");
+
 // --------------------------------------------------------------------------------
 // Tests ()
 // --------------------------------------------------------------------------------
 
 describe("Test para las funciones de la logica", () => {
-  var laLogica = null;
+    var laLogica = null;
+
   it("cargo la lógica abriendo conexión ", async function () {
     laLogica = await logica("../bd/datos.bd");
   }); //fin del test concreto
+
+    it("prueba para cargarDetallesPedido()", () => {
+        return laLogica
+            .llamar("cargarDetallesPedido.js", { OrderId: 10 })
+            .then((resultado) => {
+                assert.equal(resultado[0].ProductName, "Platanos", "no es el resultado esperado?");
+            })
+            .catch((error) => {
+                //console.error("Error en cargarDetallesPedido():", error);
+                assert.fail(error);
+            });
+    }); //fin del test concreto
 
   it("prueba para cargarPedidos()", () => {
     return laLogica
       .llamar("cargarPedidos.js", { CustomerID: 2 })
       .then((resultado) => {
-        assert.equal(resultado[0].OrderId, 3, "no es el resultado esperado?");
+        assert.equal(resultado[0].OrderId, 8, "no es el resultado esperado?");
       })
       .catch((error) => {
-        console.error("Error en cargarPedidos():", error);
+        //console.error("Error en cargarPedidos():", error);
+        assert.fail(error);
       });
   }); //fin del test concreto
 
@@ -44,7 +49,8 @@ describe("Test para las funciones de la logica", () => {
         assert.equal(resultado[2].Unit, "ml", "No es mililitros?");
       })
       .catch((error) => {
-        console.error("Error en cargarProductos():", error);
+        //console.error("Error en cargarProductos():", error);
+        assert.fail(error);
       });
   }); //fin del test concreto
 
@@ -60,49 +66,24 @@ describe("Test para las funciones de la logica", () => {
         );
       })
       .catch((error) => {
-        console.error("Error en cargarProductosCategoria():", error);
+        //console.error("Error en cargarProductosCategoria():", error);
+        assert.fail(error);
       });
   }); //fin del test concreto
 
   it("prueba para cargarProductosPedido()", () => {
     return laLogica
-      .llamar("cargarProductosPedido.js", { OrderID: 2 })
+      .llamar("cargarProductosPedido.js", { CustomerID: 2 })
       .then((resultado) => {
-        assert.equal(resultado[0].ProductName, "Lápiz", "No es lapiz?");
-        assert.equal(resultado[0].Quantity, 2, "No es 2?");
+          //console.log(resultado);
+        assert.equal(resultado[0].ProductName, "Libreta", "No es lapiz?");
+        assert.equal(resultado[0].Quantity, 6, "No es 2?");
       })
       .catch((error) => {
-        console.error("Error en cargarProductosPedido():", error);
+        //console.error("Error en cargarProductosPedido():", error);
+        assert.fail(error);
       });
   }); //fin del test concreto
-
-  // it("prueba para crearPedido()", () => {
-  // 	return crearPedido(2)
-  // 		.then((resultado) => {
-  //
-  // 		})
-  // 		.catch(error => {
-  // 			console.error('Error en crearPedido():', error);
-  // 		});
-  // }) //fin del test concreto
-  //
-  //it("prueba para guardarProductoEnPedido()", () => {
-  //  return guardarProductoEnPedido()
-  //    .then((resultado) => {})
-  //    .catch((error) => {
-  //      console.error("Error en guardarProductoEnPedido():", error);
-  //      assert.fail("Test failed due to promise rejection");
-  //    });
-  //}); //fin del test concreto
-  //
-  // it("prueba para pagarPedido()", () => {
-  // 	return pagarPedido()
-  // 		.then((resultado) => {
-  // 		})
-  // 		.catch(error => {
-  // 			console.error('Error en pagarPedido():', error);
-  // 		});
-  // }) //fin del test concreto
 
   it("prueba para login() correcta", () => {
     return laLogica
@@ -112,7 +93,7 @@ describe("Test para las funciones de la logica", () => {
         assert.equal(resultado[0].CustomerID, 1, "No es 1?");
       })
       .catch((error) => {
-        console.error("Error en login():", error);
+        //console.error("Error en login():", error);
         assert.fail("Test failed due to promise rejection");
       });
   }); //fin del test concreto
@@ -129,6 +110,39 @@ describe("Test para las funciones de la logica", () => {
       });
   }); //fin del test concreto
 }); //fin del describe
+
+describe("Test para crearPedido(), guardarProductosEnPedido() y pagarPedido()", () => {
+    var laLogica = null;
+
+    it("cargo la lógica abriendo conexión ", async function () {
+        laLogica = await logica("../bd/datos.bd");
+    }); //fin del test concreto
+
+    it("prueba para crearPedido()", () => {
+        return crearPedido({ CustomerID: 1 })
+            .then((resultado) => {
+                return guardarProductoEnPedido()
+                    .then((resultado) => {
+                    })
+                    .catch((error) => {
+                        console.error("Error en guardarProductoEnPedido():", error);
+                        assert.fail("Test failed due to promise rejection");
+                    });
+            })
+            .catch(error => {
+                console.error('Error en crearPedido():', error);
+            });
+    }) //fin del test concreto
+
+    it("prueba para pagarPedido()", () => {
+        return pagarPedido()
+            .then((resultado) => {
+            })
+            .catch(error => {
+                console.error('Error en pagarPedido():', error);
+            });
+    }) //fin del test concreto
+})
 // --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------
