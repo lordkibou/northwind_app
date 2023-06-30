@@ -26,7 +26,7 @@ module.exports = async function login(datos) {
           resolver([{ CustomerID: res[0].CustomerID }]);
         } else {
           resolver([{ CustomerID: -1 }]);
-          console.log("El usuario o contraseña contraseña son incorrectos");
+          //console.log("El usuario o contraseña contraseña son incorrectos");
         }
       }
     });

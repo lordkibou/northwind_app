@@ -6,7 +6,7 @@
 //
 // ----------------------------------------------------------------------------
 
-module.exports =  async function crearPedido() {
+module.exports =  async function crearPedido(datos) {
 
     // tengo "inyectada" también xxx.logica para poder llamar a funciones "hermanas"
     //         this.logica.funciones.loQueSea.f()
